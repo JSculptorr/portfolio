@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Web Developer & Designer</title>
+    <style>
+        :root { --bg: #0a0a0a; --accent: #00f2ff; --text: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: auto; }
+        header { text-align: center; padding: 100px 0; }
+        h1 { font-size: 3rem; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .card { background: #161616; padding: 20px; border-radius: 15px; border: 1px solid #333; transition: 0.4s; }
+        .card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .tag { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; }
+        footer { margin-top: 100px; text-align: center; color: #666; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Creative Developer</h1>
+        <p>Создаю современные сайты и продающие карточки товаров</p>
+    </header>
+
+    <div class="grid">
+        <script>
+            const projects = [
+                {title: "E-commerce Сайт", type: "Разработка"},
+                {title: "Карточка товара №1", type: "Дизайн Figma"},
+                {title: "Landing Page", type: "Разработка"},
+                {title: "Карточка товара №2", type: "Дизайн Figma"},
+                {title: "Корпоративный сайт", type: "Разработка"},
+                {title: "Карточка товара №3", type: "Дизайн Figma"},
+                {title: "Портфолио проект", type: "Разработка"}
+            ];
+            projects.forEach(p => {
+                document.write(`
+                    <div class="card">
+                        <div class="tag">${p.type}</div>
+                        <h3>${p.title}</h3>
+                        <p>Краткое описание функционала и технологий, использованных в этом проекте.</p>
+                    </div>
+                `);
+            });
+        </script>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Разработано с фокусом на результат</p>
+    </footer>
+</div>
+
+</body>
+</html>
