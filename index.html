@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Developer & UX/UI Designer</title>
+    <!-- Подключаем шрифты и иконки для дорогого вида -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-main: #050508;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00f2ff;
+            --accent-purple: #7000ff;
+            --text-main: #f3f4f6;
+            --text-muted: #8b949e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Фоновые градиентные сферы для глубины */
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(112,0,255,0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -200px;
+            left: -200px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .bg-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0,242,255,0.1) 0%, rgba(0,0,0,0) 70%);
+            top: 600px;
+            right: -200px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Навигация */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
+        .logo span { color: var(--accent-cyan); }
+        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 30px; transition: 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--text-main); }
+
+        /* Главный экран (Hero) */
+        .hero {
+            padding: 120px 0 80px 0;
+            text-align: center;
+            position: relative;
+        }
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--accent-cyan);
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 40%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+        .cta-btn {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.15);
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 242, 255, 0.3); }
+
+        /* Секция: Услуги */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .section-desc { color: var(--text-muted); margin-bottom: 50px; font-size: 1.05rem; }
+        
+        .services { padding: 100px 0; }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+        }
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .service-card:hover {
+            border-color: rgba(0, 242, 255, 0.3);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(112, 0, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+        .service-card h3 { margin-bottom: 14px; font-size: 1.4rem; }
+        .service-card ul { list-style: none; color: var(--text-muted); font-size: 0.95rem; }
+        .service-card ul li { margin-bottom: 8px; display: flex; align-items: center; }
+        .service-card ul li i { color: var(--accent-cyan); margin-right: 10px; font-size: 0.8rem; }
+
+        /* Секция: Портфолио с табами */
+        .portfolio { padding: 100px 0; background: rgba(255,255,255,0.01); border-y: 1px solid var(--border-color); }
+        .tabs { display: flex; gap: 15px; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .tab-btn {
+            background: none; border: none; color: var(--text-muted); font-family: inherit; font-size: 1.1rem;
+            font-weight: 600; cursor: pointer; padding: 10px 20px; transition: 0.3s; position: relative;
+        }
+        .tab-btn.active { color: var(--text-main); }
+        .tab-btn.active::after {
+            content: ''; position: absolute; bottom: -16px; left: 0; width: 100%; height: 2px; background: var(--accent-cyan);
+        }
+        
+        .portfolio-container { display: none; }
+        .portfolio-container.active-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .portfolio-card {
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: 0.4s;
+        }
+        .portfolio-card:hover { border-color: rgba(112, 0, 255, 0.4); transform: scale(1.02); }
+        
+        /* Заглушка под будущие скрины/изображения */
+        .project-img-placeholder {
+            height: 220px; background: linear-gradient(210deg, #111, #1a1a2e); display: flex;
+            align-items: center; justify-content: center; color: rgba(255,255,255,0.1); font-size: 3rem; position: relative;
+        }
+        .project-img-placeholder::after {
+            content: 'PREVIEW'; font-size: 0.75rem; letter-spacing: 3px; color: var(--text-muted); position: absolute; bottom: 15px;
+        }
+        .project-info { padding: 25px; }
+        .project-tech { font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+        .project-info h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .project-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+        .project-link { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+        .project-link:hover { color: var(--accent-cyan); }
+
+        /* Контакты */
+        .contact { padding: 100px 0; text-align: center; }
+        .contact-box {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(0,0,0,0) 100%);
+            border: 1px solid var(--border-color); padding: 60px; border-radius: 30px; max-width: 800px; margin: 0 auto;
+        }
+        .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
+        .social-icon {
+            width: 50px; height: 50px; background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main);
+            text-decoration: none; font-size: 1.2rem; transition: 0.3s;
+        }
+        .social-icon:hover { background: var(--text-main); color: var(--bg-main); transform: translateY(-3px); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-glow-2"></div>
+
+<div class="container">
+    <!-- Навигация -->
+    <nav>
+        <div class="logo">DEV<span>.</span>DES</div>
+        <div class="nav-links">
+            <a href="#services">Услуги</a>
+            <a href="#portfolio">Портфолио</a>
+            <a href="#contact">Контакты</a>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Доступен для крупных проектов</div>
+        <h1>Проектирую код.<br>Создаю конверсию.</h1>
+        <p>Разработка технологичных веб-приложений полного цикла и проектирование коммерческой графики/инфографики для маркетплейсов в Figma.</p>
+        <a href="#contact" class="cta-btn">Обсудить проект</a>
+    </section>
+
+    <!-- Секция: Мои услуги -->
+    <section class="services" id="services">
+        <h2 class="section-title">Что я делаю професcионально</h2>
+        <p class="section-desc">Каждый этап работы нацелен на то, чтобы ваш бизнес выглядел дорого и продавал эффективно.</p>
+        
+        <div class="services-grid">
+            <!-- Услуга 1 -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-code"></i></div>
+                <h3>Web-разработка</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Создание чистой архитектуры, быстрая загрузка и адаптивность под любые экраны.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Интерактивные SPA (React / Next.js)</li>
+                    <li><i class="fa-solid fa-check"></i> Чистый семантический HTML / CSS / JS</li>
+                    <li><i class="fa-solid fa-check"></i> Оптимизация скорости (PageSpeed 95+)</li>
+                </ul>
+            </div>
+
+            <!-- Услуга 2 -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-bezier-curve"></i></div>
+                <h3>UX/UI & Дизайн карточек</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Анализ конкурентов, выстраивание визуальной иерархии и сочные акценты.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Дизайн интерфейсов в Figma</li>
+                    <li><i class="fa-solid fa-check"></i> Продающие карточки для маркетплейсов</li>
+                    <li><i class="fa-solid fa-check"></i> Высокая кликабельность (CTR) карточек</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция: Портфолио -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Кейсы и работы</h2>
+        <p class="section-desc">Семь моих избранных проектов, разделенных по направлениям.</p>
+
+        <!-- Переключатели (Табы) -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('websites')">Сайты</button>
+            <button class="tab-btn" onclick="switchTab('cards')">Карточки маркетплейсов (Figma)</button>
+        </div>
+
+        <!-- Контейнер сайтов (4 штуки) -->
+        <div class="portfolio-container active-container" id="websites">
+            <div class="portfolio-card">
+                <div class="project-img-placeholder"><i class="fa-solid fa-laptop-code"></i></div>
+                <div class="project-info">
+                    <div class="project-tech">React / Node.js</div>
+                    <h3>E-commerce Экосистема</h3>
+                    <p>Интернет-магазин с корзиной, интерактивным выбором параметров товара и плавной анимацией интерфейса.</p>
+                    <a href="#" class="project-link">Смотреть проект <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+            
+            <div class="portfolio-card">
+                <div class="project-img-placeholder"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="project-info">
+                    <div class="project-tech">Next.js / Tailwind</div>
+                    <h3>SaaS Платформа</h3>
+                    <p>Многостраничный сайт для сквозной аналитики. Реализована темная тема и сложные кастомные графики.</p>
+                    <a href="#" class="project-link">Смотреть проект <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="project-img-placeholder"><i class="fa-solid fa-bolt"></i></div>
+                <div class="project-info">
+                    <div class="project-tech">HTML5 / WebGL</div>
+                    <h3>Промо-сайт (Landing Page)</h3>
+                    <p>Продающая посадочная страница с высокой конверсией для премиального бренда электроники.</p>
+                    <a href="#" class="project-link">Смотреть проект <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="project-img-placeholder"><i class="fa-solid fa-mobile-screen"></i></div>
+                <div class="project-info">
+                    <div class="project-tech">React Native</div>
+                    <h3>Сервис доставки (PWA)</h3>
+                    <p>Адаптивное веб-приложение, оптимизированное под мобильные устройства и работу в условиях слабого интернета.</p>
+                    <a href="#" class="project-link">Смотреть проект <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Контейнер карточек (3 штуки) -->
+        <div class="portfolio-container" id="cards">
+            <div class="portfolio-card">
+                <div class="project-img-placeholder"><i class="fa-solid fa-store"></i></div>
+                <div class="project-info">
+                    <div class="project-tech">Figma / Инфографика</div>
+                    <h3>Карточка: Гаджеты & Электроника</h3>
+                    <p>Разработка инфографики для Wildberries. Фокус на ключевых УТП, увеличивший CTR карточки на 4.2%.</p>
+                    <a href="#" class="project-link">Открыть в Figma <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="project-img-placeholder"><i class="fa-solid fa-shirt"></i></div>
+                <div class="project-info">
+                    <div class="project-tech">Figma / Retouch</div>
+                    <h3>Серия карточек: Одежда и Стиль</h3>
+                    <p>Минималистичный дизайн для Ozon премиум-сегмента. Цветокоррекция, работа с тенями и шрифтовыми парами.</p>
+                    <a href="#" class="project-link">Открыть в Figma <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="project-img-placeholder"><i class="fa-solid fa-dumbbell"></i></div>
+                <div class="project-info">
+                    <div class="project-tech">Figma / 3D Render</div>
+                    <h3>Карточка: Спортивные товары</h3>
+                    <p>Агрессивный, динамичный дизайн с интеграцией 3D элементов. Проработка преимуществ для целевой аудитории.</p>
+                    <a href="#" class="project-link">Открыть в Figma <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция: Контакты -->
+    <section class="contact" id="contact">
+        <div class="contact-box">
+            <h2 class="section-title" style="margin-bottom: 20px;">Готовы запустить проект?</h2>
+            <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 30px auto;">Напишите мне. Я проанализирую вашу задачу и предложу оптимальное технологическое решение.</p>
+            
+            <a href="mailto:your@email.com" class="cta-btn" style="box-shadow: none;">Написать на почту</a>
+            
+            <div class="social-links">
+                <a href="#" class="social-icon" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" class="social-icon" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="social-icon" title="Behance"><i class="fa-brands fa-behance"></i></a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Логика переключения вкладок -->
+<script>
+    function switchTab(tabId) {
+        // Убираем активный класс у всех кнопок
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        // Убираем активный класс у всех контейнеров
+        document.querySelectorAll('.portfolio-container').forEach(cnt => cnt.classList.remove('active-container'));
+        
+        // Добавляем активный класс нажатой кнопке
+        event.currentTarget.classList.add('active');
+        // Показываем нужный контейнер
+        document.getElementById(tabId).classList.add('active-container');
+    }
+</script>
+
+</body>
+</html>
