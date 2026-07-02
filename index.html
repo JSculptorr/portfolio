@@ -3,130 +3,733 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Портфолио | JSculptor</title>
+  <title>JSculptor | Portfolio</title>
+
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0f17;
-      color: white;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(71, 118, 255, 0.22), transparent 35%),
+        radial-gradient(circle at top right, rgba(0, 255, 194, 0.12), transparent 32%),
+        #060912;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .container {
-      width: 90%;
-      max-width: 1100px;
-      margin: auto;
-      padding: 50px 0;
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(6, 9, 18, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4f8cff, #00ffc2);
+      display: grid;
+      place-items: center;
+      color: #06101f;
+      font-weight: 900;
+      box-shadow: 0 0 32px rgba(79, 140, 255, 0.45);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      color: #aeb9cf;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .nav-btn {
+      padding: 12px 18px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 14px;
     }
 
     .hero {
-      text-align: center;
-      margin-bottom: 50px;
+      padding: 92px 0 70px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: #c7d2e8;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    .badge-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #00ffc2;
+      box-shadow: 0 0 18px #00ffc2;
     }
 
     .hero h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 0.98;
+      letter-spacing: -2.8px;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff, #7aa7ff, #00ffc2);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
     .hero p {
-      color: #b7c0d1;
+      max-width: 650px;
+      color: #aeb9cf;
       font-size: 18px;
+      line-height: 1.75;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      padding: 15px 22px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, #4f8cff, #00d6a3);
+      color: #06101f;
+      box-shadow: 0 18px 45px rgba(79, 140, 255, 0.28);
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #ffffff;
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 22px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.13);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    }
+
+    .panel-window {
+      border-radius: 22px;
+      background: #080d18;
+      border: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+
+    .window-top {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .circle {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #ff5f57;
+    }
+
+    .circle:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .circle:nth-child(3) {
+      background: #28c840;
+    }
+
+    .code-box {
+      padding: 24px;
+      font-family: Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #b7c5dd;
+    }
+
+    .code-blue {
+      color: #7aa7ff;
+    }
+
+    .code-green {
+      color: #00ffc2;
+    }
+
+    .code-yellow {
+      color: #ffd166;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin: 20px 0 80px;
+    }
+
+    .stat-card {
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat-card h3 {
+      font-size: 30px;
+      margin-bottom: 6px;
+    }
+
+    .stat-card p {
+      color: #9faec8;
+      font-size: 14px;
+    }
+
+    .section {
+      padding: 70px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    .section-label {
+      color: #00ffc2;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+    }
+
+    .section h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      letter-spacing: -1.5px;
+    }
+
+    .section-desc {
+      max-width: 430px;
+      color: #9faec8;
+      line-height: 1.7;
     }
 
     .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
     }
 
-    .card {
-      background: #121826;
-      border: 1px solid #243047;
-      border-radius: 18px;
+    .project-card {
+      position: relative;
+      min-height: 330px;
       padding: 24px;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035));
+      border: 1px solid rgba(255,255,255,0.11);
+      overflow: hidden;
       transition: 0.3s;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: #4f8cff;
+    .project-card::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      right: -80px;
+      top: -80px;
+      background: rgba(79, 140, 255, 0.18);
+      filter: blur(10px);
     }
 
-    .card h2 {
-      margin-top: 0;
-      font-size: 22px;
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0, 255, 194, 0.35);
+      box-shadow: 0 28px 60px rgba(0,0,0,0.32);
     }
 
-    .card p {
-      color: #b7c0d1;
-      line-height: 1.5;
+    .project-top {
+      position: relative;
+      z-index: 1;
+      height: 120px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(79,140,255,0.35), rgba(0,255,194,0.12)),
+        rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: end;
+      padding: 18px;
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 18px;
-      background: #4f8cff;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
+    .project-tag {
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.32);
+      color: #d8e4ff;
     }
 
-    .btn:hover {
-      background: #2f6fe8;
+    .project-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 23px;
+      margin-bottom: 12px;
+    }
+
+    .project-card p {
+      position: relative;
+      z-index: 1;
+      color: #aeb9cf;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      padding: 12px 15px;
+      border-radius: 13px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.13);
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      padding: 28px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #4f8cff, #00ffc2);
+      color: #06101f;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 12px;
+      font-size: 21px;
+    }
+
+    .service-card p {
+      color: #aeb9cf;
+      line-height: 1.65;
+    }
+
+    .contact {
+      margin: 70px 0 50px;
+      padding: 42px;
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(79,140,255,0.22), rgba(0,255,194,0.12)),
+        rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .contact h2 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .contact p {
+      color: #c4cee0;
+      line-height: 1.7;
+      max-width: 620px;
+    }
+
+    .footer {
+      padding: 28px 0;
+      color: #7d8aa3;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 950px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 60px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects,
+      .services {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .contact {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-btn {
+        display: none;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        justify-content: center;
+      }
+
+      .stats,
+      .projects,
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact {
+        padding: 28px;
+      }
+
+      .contact h2 {
+        font-size: 29px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <div class="container">
-    <div class="hero">
-      <h1>Моё портфолио</h1>
-      <p>Сайты, интернет-магазины, карточки товаров, Telegram-боты и другие проекты</p>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">JS</span>
+        <span>JSculptor</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#projects">Проекты</a>
+        <a href="#services">Услуги</a>
+        <a href="#contact">Связь</a>
+      </nav>
+
+      <a class="nav-btn" href="#contact">Обсудить проект</a>
     </div>
+  </header>
 
-    <div class="projects">
+  <main class="container">
 
-      <div class="card">
-        <h2>Интернет-магазин одежды</h2>
-        <p>Адаптивный сайт с каталогом товаров, корзиной и формой заказа.</p>
-        <a class="btn" href="https://jsculptorr.github.io/fashionstore/" target="_blank">Посмотреть проект</a>
+    <section class="hero">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Custom coded websites, bots and digital products
+        </div>
+
+        <h1>
+          Разрабатываю <span class="gradient-text">современные сайты</span> и цифровые решения для бизнеса
+        </h1>
+
+        <p>
+          Создаю адаптивные сайты, интернет-магазины, Telegram-боты, интерфейсы и автоматизацию.
+          В проектах делаю упор на дизайн, удобство, скорость работы и понятный результат для клиента.
+        </p>
+
+        <div class="hero-actions">
+          <a class="primary-btn" href="#projects">Смотреть проекты</a>
+          <a class="secondary-btn" href="#contact">Связаться со мной</a>
+        </div>
       </div>
 
-      <div class="card">
-        <h2>Сайт ресторана</h2>
-        <p>Красивый сайт для ресторана с меню, карточками блюд и формой бронирования.</p>
-        <a class="btn" href="https://jsculptorr.github.io/restaurant/" target="_blank">Посмотреть проект</a>
+      <div class="hero-panel">
+        <div class="panel-window">
+          <div class="window-top">
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+          </div>
+
+          <div class="code-box">
+            <div><span class="code-blue">const</span> developer = <span class="code-green">"JSculptor"</span>;</div>
+            <div><span class="code-blue">skills</span> = [<span class="code-green">"HTML"</span>, <span class="code-green">"CSS"</span>, <span class="code-green">"JavaScript"</span>];</div>
+            <div><span class="code-blue">services</span> = [<span class="code-green">"Websites"</span>, <span class="code-green">"Telegram Bots"</span>, <span class="code-green">"UI Design"</span>];</div>
+            <br>
+            <div><span class="code-yellow">function</span> buildProject(client) {</div>
+            <div>&nbsp;&nbsp;return <span class="code-green">"Clean design + working functionality"</span>;</div>
+            <div>}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat-card">
+        <h3>30+</h3>
+        <p>созданных проектов</p>
       </div>
 
-      <div class="card">
-        <h2>Сайт пиццерии</h2>
-        <p>Онлайн-заказ пиццы, меню, корзина и современный дизайн.</p>
-        <a class="btn" href="https://jsculptorr.github.io/pizza/" target="_blank">Посмотреть проект</a>
+      <div class="stat-card">
+        <h3>100%</h3>
+        <p>адаптивный дизайн</p>
       </div>
 
-      <div class="card">
-        <h2>Карточки товаров</h2>
-        <p>Дизайн карточек для Wildberries и Ozon с инфографикой и преимуществами товара.</p>
-        <a class="btn" href="https://jsculptorr.github.io/marketplace-cards/" target="_blank">Посмотреть работы</a>
+      <div class="stat-card">
+        <h3>24/7</h3>
+        <p>сайты работают онлайн</p>
       </div>
 
-      <div class="card">
-        <h2>Telegram-боты</h2>
-        <p>Боты для заявок, заказов, уведомлений и автоматизации бизнеса.</p>
-        <a class="btn" href="https://jsculptorr.github.io/telegram-bots/" target="_blank">Посмотреть кейс</a>
+      <div class="stat-card">
+        <h3>AI+</h3>
+        <p>быстрая разработка с AI-инструментами</p>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Portfolio</div>
+          <h2>Избранные проекты</h2>
+        </div>
+        <p class="section-desc">
+          Ниже собраны примеры сайтов и цифровых решений. Каждый проект можно адаптировать под другой бизнес.
+        </p>
       </div>
 
-      <div class="card">
-        <h2>Dushanbe Bus App</h2>
-        <p>Проект для отслеживания общественного транспорта и отображения данных о маршрутах.</p>
-        <a class="btn" href="https://jsculptorr.github.io/dushanbe-bus/" target="_blank">Посмотреть проект</a>
+      <div class="projects">
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">E-commerce</span>
+          </div>
+          <h3>Интернет-магазин одежды</h3>
+          <p>Каталог товаров, корзина, форма заказа и современный адаптивный интерфейс.</p>
+          <a class="project-link" href="https://jsculptorr.github.io/fashionstore/" target="_blank">Открыть проект</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">Restaurant</span>
+          </div>
+          <h3>Сайт ресторана</h3>
+          <p>Меню, карточки блюд, секция бронирования и приятная визуальная подача.</p>
+          <a class="project-link" href="https://jsculptorr.github.io/restaurant/" target="_blank">Открыть проект</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">Food delivery</span>
+          </div>
+          <h3>Сайт пиццерии</h3>
+          <p>Онлайн-заказ, список блюд, корзина и удобная структура для доставки.</p>
+          <a class="project-link" href="https://jsculptorr.github.io/pizza/" target="_blank">Открыть проект</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">Marketplace</span>
+          </div>
+          <h3>Карточки товаров</h3>
+          <p>Дизайн карточек для Wildberries и Ozon: инфографика, преимущества, чистая композиция.</p>
+          <a class="project-link" href="https://jsculptorr.github.io/marketplace-cards/" target="_blank">Открыть работы</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">Telegram Bot</span>
+          </div>
+          <h3>Telegram-боты</h3>
+          <p>Боты для заявок, заказов, уведомлений, записи клиентов и автоматизации процессов.</p>
+          <a class="project-link" href="https://jsculptorr.github.io/telegram-bots/" target="_blank">Открыть кейс</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">Transport App</span>
+          </div>
+          <h3>Dushanbe Bus App</h3>
+          <p>Проект для отображения общественного транспорта, маршрутов и данных по автобусам.</p>
+          <a class="project-link" href="https://jsculptorr.github.io/dushanbe-bus/" target="_blank">Открыть проект</a>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Services</div>
+          <h2>Что я могу сделать</h2>
+        </div>
+        <p class="section-desc">
+          Не использую шаблонные конструкторы. Делаю проекты через код, чтобы дизайн и функционал можно было настроить под задачу клиента.
+        </p>
       </div>
 
-    </div>
-  </div>
+      <div class="services">
+        <div class="service-card">
+          <div class="service-icon">01</div>
+          <h3>Сайты для бизнеса</h3>
+          <p>Лендинги, сайты услуг, рестораны, магазины, каталоги, формы заявок и адаптация под телефон.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">02</div>
+          <h3>Интернет-магазины</h3>
+          <p>Каталог, корзина, заказ через Telegram или WhatsApp, удобный интерфейс и структура товаров.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">03</div>
+          <h3>Telegram-боты</h3>
+          <p>Боты для заказов, заявок, автоответов, уведомлений, записи и простой автоматизации бизнеса.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div>
+        <h2>Хотите похожий проект?</h2>
+        <p>
+          Напишите мне, и я предложу вариант сайта или бота под ваш бизнес.
+          Можно начать с простого проекта и постепенно добавить нужные функции.
+        </p>
+      </div>
+
+      <a class="primary-btn" href="https://t.me/your_username" target="_blank">Написать в Telegram</a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    © 2026 JSculptor. Portfolio website.
+  </footer>
 
 </body>
 </html>
