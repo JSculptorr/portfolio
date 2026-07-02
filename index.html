@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Портфолио | JSculptor</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f17;
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 0;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #b7c0d1;
+      font-size: 18px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #121826;
+      border: 1px solid #243047;
+      border-radius: 18px;
+      padding: 24px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #4f8cff;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .card p {
+      color: #b7c0d1;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 18px;
+      background: #4f8cff;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #2f6fe8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="hero">
+      <h1>Моё портфолио</h1>
+      <p>Сайты, интернет-магазины, карточки товаров, Telegram-боты и другие проекты</p>
+    </div>
+
+    <div class="projects">
+
+      <div class="card">
+        <h2>Интернет-магазин одежды</h2>
+        <p>Адаптивный сайт с каталогом товаров, корзиной и формой заказа.</p>
+        <a class="btn" href="https://jsculptorr.github.io/fashionstore/" target="_blank">Посмотреть проект</a>
+      </div>
+
+      <div class="card">
+        <h2>Сайт ресторана</h2>
+        <p>Красивый сайт для ресторана с меню, карточками блюд и формой бронирования.</p>
+        <a class="btn" href="https://jsculptorr.github.io/restaurant/" target="_blank">Посмотреть проект</a>
+      </div>
+
+      <div class="card">
+        <h2>Сайт пиццерии</h2>
+        <p>Онлайн-заказ пиццы, меню, корзина и современный дизайн.</p>
+        <a class="btn" href="https://jsculptorr.github.io/pizza/" target="_blank">Посмотреть проект</a>
+      </div>
+
+      <div class="card">
+        <h2>Карточки товаров</h2>
+        <p>Дизайн карточек для Wildberries и Ozon с инфографикой и преимуществами товара.</p>
+        <a class="btn" href="https://jsculptorr.github.io/marketplace-cards/" target="_blank">Посмотреть работы</a>
+      </div>
+
+      <div class="card">
+        <h2>Telegram-боты</h2>
+        <p>Боты для заявок, заказов, уведомлений и автоматизации бизнеса.</p>
+        <a class="btn" href="https://jsculptorr.github.io/telegram-bots/" target="_blank">Посмотреть кейс</a>
+      </div>
+
+      <div class="card">
+        <h2>Dushanbe Bus App</h2>
+        <p>Проект для отслеживания общественного транспорта и отображения данных о маршрутах.</p>
+        <a class="btn" href="https://jsculptorr.github.io/dushanbe-bus/" target="_blank">Посмотреть проект</a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
