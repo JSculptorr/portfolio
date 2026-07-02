@@ -227,14 +227,78 @@
     .pizza .case-panel { left: 3%; bottom: 30px; width: 30%; }
     .pizza .case-label { right: 28px; bottom: 28px; }
 
-    .market { background: #050505; }
-    .market .case-bg { left: 37%; }
-    .market .case-bg img { object-position: center 36%; }
-    .market .case-bg::after { background: linear-gradient(90deg, #050505 0, transparent 45%), linear-gradient(0deg, rgba(0,0,0,.4), transparent 45%); }
-    .market .case-title { left: 3%; top: 54px; width: 62%; }
+    .market {
+      min-height: 760px;
+      background:
+        radial-gradient(circle at 72% 42%, rgba(0,205,214,.12), transparent 32%),
+        radial-gradient(circle at 88% 78%, rgba(116,69,255,.13), transparent 28%),
+        #050505;
+    }
+    .market::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .12;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(90deg, transparent 24%, #000 55%);
+    }
+    .market .case-title { left: 3%; top: 54px; width: 42%; }
     .market .case-title .accent { color: var(--cyan); }
     .market .case-panel { left: 3%; bottom: 34px; width: 31%; }
     .market .case-label { right: 28px; top: 28px; }
+    .market-gallery {
+      position: absolute;
+      z-index: 3;
+      top: 125px;
+      right: 1.8%;
+      bottom: 72px;
+      left: 35%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 7%;
+      perspective: 1400px;
+    }
+    .market-card {
+      position: relative;
+      flex: 0 0 clamp(150px, 15vw, 225px);
+      aspect-ratio: 3 / 4;
+      margin-left: clamp(-62px, -4vw, -38px);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.3);
+      background: #111;
+      box-shadow: -20px 24px 55px rgba(0,0,0,.55);
+      transition: transform .55s var(--ease), filter .4s, box-shadow .4s;
+    }
+    .market-card:nth-child(1) { z-index: 1; transform: translateY(28px) rotate(-7deg); }
+    .market-card:nth-child(2) { z-index: 2; transform: translateY(-22px) rotate(-3deg); }
+    .market-card:nth-child(3) { z-index: 3; transform: translateY(18px) rotate(1deg); }
+    .market-card:nth-child(4) { z-index: 4; transform: translateY(-28px) rotate(4deg); }
+    .market-card:nth-child(5) { z-index: 5; transform: translateY(22px) rotate(7deg); }
+    .market-card img { width: 100%; height: 100%; object-fit: cover; }
+    .market-card::after {
+      content: attr(data-no);
+      position: absolute;
+      right: 10px;
+      bottom: 9px;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(255,255,255,.55);
+      background: rgba(0,0,0,.54);
+      color: #fff;
+      font: 8px monospace;
+      backdrop-filter: blur(8px);
+    }
+    .market-card:hover {
+      z-index: 10;
+      transform: translateY(-18px) rotate(0) scale(1.12);
+      box-shadow: 0 34px 75px rgba(0,0,0,.72), 0 0 35px rgba(0,205,214,.12);
+    }
+    .market-gallery:has(.market-card:hover) .market-card:not(:hover) { filter: brightness(.45) saturate(.7); }
 
     .bot { background: #070708; }
     .bot .case-bg { right: 0; width: 67%; }
@@ -427,8 +491,11 @@
       .split-case .half { min-height: 560px; }
       .split-case .half:first-child { border-right: 0; border-bottom: 6px solid var(--red); }
       .pizza .case-panel, .market .case-panel, .bot .case-panel, .transport .case-panel { width: 43%; }
-      .market .case-bg, .bot .case-bg { left: 0; width: 100%; opacity: .7; }
+      .bot .case-bg { left: 0; width: 100%; opacity: .7; }
       .market .case-title { width: 94%; }
+      .market { min-height: 780px; }
+      .market-gallery { left: 27%; right: 1%; top: 145px; bottom: 150px; padding-left: 7%; }
+      .market-card { flex-basis: clamp(135px, 20vw, 178px); }
       .timeline { margin-top: 60px; }
     }
 
@@ -465,6 +532,30 @@
       .pizza .case-title { top: 30px; font-size: 52px; }
       .pizza .case-panel, .market .case-panel, .bot .case-panel, .transport .case-panel { left: 12px; right: 12px; bottom: 12px; top: auto; width: auto; }
       .market .case-title, .bot .case-title { left: 12px; top: 30px; font-size: 52px; }
+      .market { min-height: 750px; }
+      .market .case-label { display: none; }
+      .market-gallery {
+        left: 0;
+        right: 0;
+        top: 142px;
+        bottom: 158px;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 24px 12px 30px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .market-gallery::-webkit-scrollbar { display: none; }
+      .market-card,
+      .market-card:nth-child(n) {
+        flex: 0 0 min(68vw, 275px);
+        margin-left: 0;
+        transform: none;
+        scroll-snap-align: center;
+      }
+      .market-card:hover { transform: translateY(-5px); }
       .transport .case-title { left: 12px; bottom: 180px; font-size: 52px; }
       .capabilities { padding: 18px 14px; }
       .cap-title { font-size: 61px; }
@@ -531,7 +622,7 @@
 
       <div class="work-head" id="work">
         <h2>Selected<br>work</h2>
-        <p>Six digital projects. Each one treated as its own visual world — not another template.</p>
+        <p>Eight digital projects. Each one treated as its own visual world — not another template.</p>
       </div>
 
       <article class="spread case fashion reveal">
@@ -553,10 +644,16 @@
         <span class="case-label">Case 03 / Food delivery</span>
       </article>
 
-      <article class="spread case market reveal">
-        <div class="case-bg"><img src="assets/void-statue.jpg" alt="Faceless prismatic digital figure"></div>
+      <article class="spread case market reveal" id="marketplace-cards">
         <span class="case-label">Case 04 / Marketplace</span>
         <h2 class="case-title"><span class="line">Product</span><span class="line accent">cards</span></h2>
+        <div class="market-gallery" aria-label="Marketplace product card designs">
+          <figure class="market-card" data-no="01"><img src="assets/card1.png" alt="Marketplace card for a botanical skincare set" loading="lazy"></figure>
+          <figure class="market-card" data-no="02"><img src="assets/card2.png" alt="Marketplace card for ASICS sneakers" loading="lazy"></figure>
+          <figure class="market-card" data-no="03"><img src="assets/card3.png" alt="Marketplace card for a fashion hoodie" loading="lazy"></figure>
+          <figure class="market-card" data-no="04"><img src="assets/card4.png" alt="Marketplace card for a premium hoodie" loading="lazy"></figure>
+          <figure class="market-card" data-no="05"><img src="assets/card5.png" alt="Marketplace card for sports nutrition" loading="lazy"></figure>
+        </div>
         <div class="case-panel"><h3>Designed to be noticed.</h3><p>Product cards for Wildberries and Ozon with infographics and clean composition.</p><a class="open" href="https://jsculptorr.github.io/marketplace-cards/" target="_blank" rel="noopener noreferrer">Open case</a></div>
       </article>
 
