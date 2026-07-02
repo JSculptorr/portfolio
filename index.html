@@ -300,14 +300,71 @@
     }
     .market-gallery:has(.market-card:hover) .market-card:not(:hover) { filter: brightness(.45) saturate(.7); }
 
-    .bot { background: #070708; }
-    .bot .case-bg { right: 0; width: 67%; }
-    .bot .case-bg img { object-position: center 36%; }
-    .bot .case-bg::after { background: linear-gradient(90deg, #070708 0%, transparent 45%); }
+    .bot {
+      min-height: 780px;
+      background:
+        radial-gradient(circle at 78% 28%, rgba(37,211,102,.1), transparent 29%),
+        radial-gradient(circle at 72% 82%, rgba(116,69,255,.13), transparent 32%),
+        #070708;
+    }
+    .bot::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .13;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(90deg, transparent 19%, #000 60%);
+    }
     .bot .case-title { left: 3%; top: 52px; z-index: 5; }
     .bot .case-title .violet { color: var(--violet); }
-    .bot .case-panel { left: 3%; bottom: 34px; width: 31%; }
+    .bot .case-panel { left: 3%; bottom: 34px; width: 27%; }
     .bot .case-label { right: 28px; bottom: 28px; }
+    .bot-showcase {
+      position: absolute;
+      z-index: 3;
+      top: 104px;
+      right: 2%;
+      bottom: 68px;
+      left: 31%;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      perspective: 1400px;
+    }
+    .bot-screen {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.24);
+      background: #0b1118;
+      box-shadow: 0 22px 54px rgba(0,0,0,.42);
+      transition: transform .45s var(--ease), border-color .35s, filter .35s;
+    }
+    .bot-screen img { width: 100%; height: 100%; object-fit: cover; transition: transform .65s var(--ease); }
+    .bot-screen::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      bottom: 9px;
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,.34);
+      background: rgba(4,8,11,.7);
+      color: #fff;
+      font: 8px monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(9px);
+    }
+    .bot-screen:hover { z-index: 8; transform: translateY(-5px) scale(1.025); border-color: rgba(87,231,174,.6); }
+    .bot-screen:hover img { transform: scale(1.035); }
+    .bot-chat-one { grid-column: 1 / 5; grid-row: 1; transform: rotate(-1.2deg); }
+    .bot-chat-two { grid-column: 1 / 5; grid-row: 2; transform: rotate(.8deg); }
+    .bot-admin-one { grid-column: 5 / 13; grid-row: 1; }
+    .bot-admin-two { grid-column: 5 / 13; grid-row: 2; }
+    .bot-chat-one img, .bot-chat-two img { object-position: left top; }
 
     .transport .case-bg img { object-position: center 45%; filter: contrast(1.16) saturate(.65); }
     .transport .case-bg::after { background: linear-gradient(90deg, rgba(0,0,0,.72), transparent 50%), linear-gradient(0deg, rgba(0,0,0,.58), transparent 45%); }
@@ -491,11 +548,12 @@
       .split-case .half { min-height: 560px; }
       .split-case .half:first-child { border-right: 0; border-bottom: 6px solid var(--red); }
       .pizza .case-panel, .market .case-panel, .bot .case-panel, .transport .case-panel { width: 43%; }
-      .bot .case-bg { left: 0; width: 100%; opacity: .7; }
       .market .case-title { width: 94%; }
       .market { min-height: 780px; }
       .market-gallery { left: 27%; right: 1%; top: 145px; bottom: 150px; padding-left: 7%; }
       .market-card { flex-basis: clamp(135px, 20vw, 178px); }
+      .bot { min-height: 780px; }
+      .bot-showcase { left: 27%; top: 145px; bottom: 150px; }
       .timeline { margin-top: 60px; }
     }
 
@@ -556,6 +614,33 @@
         scroll-snap-align: center;
       }
       .market-card:hover { transform: translateY(-5px); }
+      .bot { min-height: 750px; }
+      .bot .case-label { display: none; }
+      .bot-showcase {
+        left: 0;
+        right: 0;
+        top: 142px;
+        bottom: 158px;
+        display: flex;
+        gap: 10px;
+        padding: 20px 12px 28px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .bot-showcase::-webkit-scrollbar { display: none; }
+      .bot-screen,
+      .bot-chat-one,
+      .bot-chat-two,
+      .bot-admin-one,
+      .bot-admin-two {
+        flex: 0 0 min(82vw, 330px);
+        height: 100%;
+        transform: none;
+        scroll-snap-align: center;
+      }
+      .bot-screen:hover { transform: translateY(-4px); }
       .transport .case-title { left: 12px; bottom: 180px; font-size: 52px; }
       .capabilities { padding: 18px 14px; }
       .cap-title { font-size: 61px; }
@@ -657,10 +742,15 @@
         <div class="case-panel"><h3>Designed to be noticed.</h3><p>Product cards for Wildberries and Ozon with infographics and clean composition.</p><a class="open" href="https://www.figma.com/design/OHcLumW7aOsWcQlKPPym7P/Untitled?node-id=0-1&amp;p=f" target="_blank" rel="noopener noreferrer">Open case</a></div>
       </article>
 
-      <article class="spread case bot reveal">
-        <div class="case-bg"><img src="assets/violet-statue.jpg" alt="Digital violet statue"></div>
+      <article class="spread case bot reveal" id="telegram-bot">
         <h2 class="case-title"><span class="line">Telegram</span><span class="line violet">bots</span></h2>
-        <div class="case-panel"><h3>Quiet systems doing the work.</h3><p>Bots for orders, applications, notifications and business automation.</p><a class="open" href="https://jsculptorr.github.io/telegram-bots/" target="_blank" rel="noopener noreferrer">Open case</a></div>
+        <div class="bot-showcase" aria-label="Telegram bot and CleanCity admin dashboard">
+          <figure class="bot-screen bot-chat-one" data-label="Telegram / Order flow"><img src="assets/bot1.png" alt="Telegram bot order confirmation flow" loading="lazy"></figure>
+          <figure class="bot-screen bot-chat-two" data-label="Telegram / Services"><img src="assets/bot2.png" alt="Telegram bot services and navigation" loading="lazy"></figure>
+          <figure class="bot-screen bot-admin-one" data-label="Admin / Overview"><img src="assets/admin1.png" alt="CleanCity admin dashboard overview" loading="lazy"></figure>
+          <figure class="bot-screen bot-admin-two" data-label="Admin / Service editor"><img src="assets/admin2.png" alt="CleanCity admin dashboard service editor" loading="lazy"></figure>
+        </div>
+        <div class="case-panel"><h3>Bot and dashboard, connected.</h3><p>Applications, services, prices and notifications managed through a custom admin panel.</p><a class="open" href="https://t.me/JSculptorstorebot" target="_blank" rel="noopener noreferrer">Open bot</a></div>
         <span class="case-label">Case 05 / Automation</span>
       </article>
        <!-- COMPUTER STORE -->
