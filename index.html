@@ -287,7 +287,124 @@
     .cta-links a::after { content: "↗"; }
     .cta-links a:hover { background: var(--white); color: var(--black); }
     .legal { max-width: 260px; color: var(--grey); text-align: right; }
+     /* Computer store */
+.computer-store {
+  background: #8b001f;
+}
 
+.computer-store .case-bg {
+  left: 38%;
+  right: 0;
+}
+
+.computer-store .case-bg img {
+  object-position: center 35%;
+  filter: contrast(1.08) saturate(.85);
+}
+
+.computer-store .case-bg::after {
+  background:
+    linear-gradient(90deg, #8b001f 0%, transparent 55%),
+    linear-gradient(0deg, rgba(0,0,0,.52), transparent 48%);
+}
+
+.computer-store .case-title {
+  left: 3%;
+  top: 48px;
+  z-index: 5;
+}
+
+.computer-store .case-title .accent {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--white);
+}
+
+.computer-store .case-panel {
+  left: 3%;
+  bottom: 34px;
+  width: 31%;
+}
+
+.computer-store .case-label {
+  right: 28px;
+  bottom: 28px;
+}
+
+
+/* Online store */
+.online-store {
+  background: #090909;
+}
+
+.online-store .case-bg {
+  left: 0;
+  right: 42%;
+}
+
+.online-store .case-bg img {
+  object-position: center 30%;
+  filter: contrast(1.08);
+}
+
+.online-store .case-bg::after {
+  background: linear-gradient(90deg, transparent 55%, #090909 100%);
+}
+
+.online-store .case-title {
+  top: 48px;
+  right: 3%;
+  z-index: 5;
+  text-align: right;
+}
+
+.online-store .case-title .red-word {
+  color: #d31338;
+}
+
+.online-store .case-panel {
+  right: 3%;
+  bottom: 34px;
+  width: 34%;
+}
+
+.online-store .case-label {
+  left: 28px;
+  bottom: 28px;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+  .computer-store .case-bg,
+  .online-store .case-bg {
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: .74;
+  }
+
+  .computer-store .case-title,
+  .online-store .case-title {
+    left: 12px;
+    right: 12px;
+    top: 30px;
+    font-size: 52px;
+    text-align: left;
+  }
+
+  .computer-store .case-panel,
+  .online-store .case-panel {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+
+  .computer-store .case-label,
+  .online-store .case-label {
+    display: none;
+  }
+}
     @media (max-width: 880px) {
       .topline { grid-template-columns: 1fr 1fr; }
       .nav { display: none; }
@@ -449,7 +566,80 @@
         <div class="case-panel"><h3>Quiet systems doing the work.</h3><p>Bots for orders, applications, notifications and business automation.</p><a class="open" href="https://jsculptorr.github.io/telegram-bots/" target="_blank" rel="noopener noreferrer">Open case</a></div>
         <span class="case-label">Case 05 / Automation</span>
       </article>
+       <!-- COMPUTER STORE -->
+<article class="spread case computer-store reveal">
+  <div class="case-bg">
+    <img
+      src="assets/computer-store.jpg"
+      alt="Computer sales website"
+    >
+  </div>
 
+  <span class="case-label">
+    Case 07 / Computer store
+  </span>
+
+  <h2 class="case-title">
+    <span class="line">Computer</span>
+    <span class="line accent">Store</span>
+  </h2>
+
+  <div class="case-panel">
+    <h3>Power built for every task.</h3>
+
+    <p>
+      Computer store with product catalog, specifications,
+      filters, cart and online ordering.
+    </p>
+
+    <a
+      class="open"
+      href="https://jsculptorr.github.io/atl-tech/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Open case
+    </a>
+  </div>
+</article>
+
+
+<!-- ONLINE STORE -->
+<article class="spread case online-store reveal">
+  <div class="case-bg">
+    <img
+      src="assets/online-store.jpg"
+      alt="Modern online store"
+    >
+  </div>
+
+  <span class="case-label">
+    Case 08 / E-commerce
+  </span>
+
+  <h2 class="case-title">
+    <span class="line">Online</span>
+    <span class="line red-word">Store</span>
+  </h2>
+
+  <div class="case-panel">
+    <h3>A complete shopping experience.</h3>
+
+    <p>
+      Modern online store with categories, product pages,
+      shopping cart and convenient order flow.
+    </p>
+
+    <a
+      class="open"
+      href="https://jsculptorr.github.io/technos/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Open case
+    </a>
+  </div>
+</article>
       <article class="spread case transport reveal">
         <div class="case-bg"><img src="assets/silhouettes.jpg" alt="Architectural scene with dark silhouettes"></div>
         <span class="case-label">Case 06 / Transport app</span>
